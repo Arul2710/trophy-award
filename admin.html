@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlTag" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>TrophyCraft Admin</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23b5873a'/><text x='50' y='68' font-family='serif' font-size='55' font-weight='bold' fill='white' text-anchor='middle'>T</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap');
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #faf8f4;
+            overflow-x: hidden;
+        }
+        .dark body {
+            background: #0c0a12;
+        }
+        /* Engraving / Trophy Theme Colors */
+        :root {
+            --engrave-gold: #c8a246;
+            --engrave-bronze: #cd7f4a;
+            --engrave-silver: #9aa9b0;
+            --engrave-deep: #2c2a2e;
+            --engrave-warm: #e9dfc7;
+        }
+        .engrave-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(200, 162, 70, 0.2);
+            box-shadow: 0 12px 28px -8px rgba(0,0,0,0.05);
+        }
+        .dark .engrave-card {
+            background: #15121f;
+            border-color: rgba(200, 162, 70, 0.25);
+            box-shadow: 0 8px 24px -8px rgba(0,0,0,0.4);
+        }
+        .sidebar-active {
+            background: rgba(200, 162, 70, 0.15);
+            border-left: 4px solid #c8a246;
+            color: #c8a246 !important;
+            font-weight: 700;
+        }
+        [dir="rtl"] .sidebar-active {
+            border-left: 0;
+            border-right: 4px solid #c8a246;
+        }
+        .page-node {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .page-node.active {
+            display: block;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+        .prestige-logo {
+            background: linear-gradient(135deg, #c8a246, #e6bc6e);
+            box-shadow: 0 6px 14px rgba(200,162,70,0.25);
+        }
+        .gold-text {
+            background: linear-gradient(135deg, #c8a246, #ddb45e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        @media (max-width: 1023px) {
+            #sidebar { width: 280px; box-shadow: 0 0 30px rgba(0,0,0,0.2);}
+        }
+        button, a { min-height: 44px; min-width: 44px; cursor: pointer; }
+        .engrave-pattern {
+            background-image: radial-gradient(circle at 20% 30%, rgba(200,162,70,0.06) 2%, transparent 2.5%);
+            background-size: 32px 32px;
+        }
+        /* DARK MODE VISIBILITY FIXES (gold & bronze readability) */
+        .dark #sidebar {
+            background: #11101b !important;
+            border-color: rgba(200, 162, 70, 0.12);
+        }
+        .dark .nav-btn {
+            color: #e0dee8 !important;
+        }
+        .dark .nav-btn:hover {
+            color: #c8a246 !important;
+            background: rgba(200, 162, 70, 0.12);
+        }
+        .dark .sidebar-active,
+        .dark .sidebar-active i {
+            color: #e6bc6e !important;
+            background: rgba(200, 162, 70, 0.12);
+        }
+        .dark .text-gray-800 { color: #eef2ff !important; }
+        .dark .text-gray-600 { color: #cbd5e1 !important; }
+        .dark .text-gray-500 { color: #b9c3d4 !important; }
+        .dark .text-gold { color: #e6bc6e !important; }
+        .dark .text-bronze { color: #e3a16b !important; }
+        .dark .engrave-card p, .dark .engrave-card h3, .dark .engrave-card span, .dark .engrave-card div:not(.status-badge) {
+            color: #f0f1f5 !important;
+        }
+        .dark table th, .dark table td, .dark .border-b { border-color: rgba(200, 162, 70, 0.2) !important; }
+        .dark .bg-amber-50\/60 { background: rgba(200, 162, 70, 0.1) !important; }
+        .dark .status-badge {
+            background: rgba(200, 162, 70, 0.2) !important;
+            color: #f5e2b0 !important;
+        }
+        .dark input, .dark select, .dark textarea { background: #1e1b2a; color: #f0f1f5; border-color: #3a3450; }
+        .dark canvas { filter: brightness(0.96) contrast(1.08); }
+        .dark .text-green-600 { color: #86ef86 !important; }
+        .dark .bg-gold\/10 { background: rgba(200, 162, 70, 0.15) !important; }
+    </style>
+</head>
+<body class="bg-[#faf8f4] dark:bg-[#0c0a12] text-gray-800 dark:text-gray-100 antialiased engrave-pattern">
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden transition-opacity"></div>
+    <div class="flex min-h-screen relative w-full overflow-x-hidden">
+        <!-- SIDEBAR: TROPHY & AWARDS STUDIO -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-[280px] bg-white dark:bg-[#11101b] text-gray-700 dark:text-gray-200 transition-all duration-300 ease-in-out lg:translate-x-0 -translate-x-full border-r border-amber-200/50 dark:border-amber-800/30 overflow-y-auto flex flex-col">
+            <div class="p-5 h-full flex flex-col">
+                <div class="flex items-center justify-between mb-8">
+                    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                        <span style="font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #b8860b, #e8c25e); -webkit-background-clip: text; background-clip: text; color: transparent;">Trophy<span style="background: linear-gradient(135deg, #e8c25e, #b8860b); -webkit-background-clip: text; background-clip: text; color: transparent;">Craft</span></span>
+                    </a>
+                    <button onclick="toggleSidebar()" class="lg:hidden p-2 hover:bg-amber-50 dark:hover:bg-gray-700 rounded-lg">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="mb-5 p-2 bg-gold/5 rounded-xl border border-gold/20 text-center dark:bg-amber-900/20 dark:border-amber-700/30">
+                    <span class="text-[9px] font-semibold text-gold dark:text-amber-300 uppercase tracking-widest">🏆 custom engraving · crystal awards · laser etching</span>
+                </div>
+                <nav class="flex-1 space-y-1.5 overflow-y-auto">
+                    <p class="text-[10px] font-bold uppercase tracking-widest text-gold/70 dark:text-amber-400/80 mb-2 ml-2"><i class="fa-regular fa-gem mr-1"></i> TROPHYCRAFT ADMIN</p>
+                    <a href="javascript:void(0)" onclick="showPage('dashboard')" id="btn-dashboard" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl sidebar-active transition-all hover:bg-amber-50 dark:hover:bg-white/5 group">
+                        <i data-lucide="gauge" class="w-5 h-5 group-hover:scale-110 text-gold dark:text-amber-400"></i>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="showPage('orders')" id="btn-orders" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                        <i data-lucide="package" class="w-5 h-5 dark:text-gray-300"></i>
+                        <span class="font-medium">Active Orders</span>
+                        <span class="ml-auto bg-gold text-white text-[8px] font-bold px-2 py-1 rounded-full dark:bg-amber-600">8</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="showPage('clients')" id="btn-clients" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                        <i data-lucide="users" class="w-5 h-5 dark:text-gray-300"></i>
+                        <span class="font-medium">Corporate Clients</span>
+                        <span class="ml-auto bg-gold/20 text-gold dark:text-amber-300 text-[8px] font-bold px-2 py-1 rounded-full">36</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="showPage('quote')" id="btn-quote" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                        <i data-lucide="file-quote" class="w-5 h-5 dark:text-gray-300"></i>
+                        <span class="font-medium">Engraving Quotes</span>
+                        <span class="ml-auto bg-bronze/30 text-bronze dark:text-amber-300 text-[8px] font-bold px-2 py-1 rounded-full">5 new</span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="showPage('portfolio')" id="btn-portfolio" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                        <i data-lucide="award" class="w-5 h-5 dark:text-gray-300"></i>
+                        <span class="font-medium">Award Gallery</span>
+                    </a>
+                    <div class="mt-6 pt-6 border-t border-gold/20 dark:border-gray-700">
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-gold/70 dark:text-amber-400/80 mb-3 ml-2"><i class="fa-solid fa-engrave"></i> MATERIALS & CRAFTS</p>
+                        <a href="javascript:void(0)" onclick="showPage('inventory')" id="btn-inventory" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                            <i data-lucide="layers" class="w-5 h-5 dark:text-gray-300"></i>
+                            <span class="font-medium">Crystal & Metals</span>
+                            <span class="ml-auto bg-gold text-white text-[8px] font-bold px-2 py-1 rounded-full dark:bg-amber-600">Restock</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="showPage('crew')" id="btn-crew" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                            <i data-lucide="badge-check" class="w-5 h-5 dark:text-gray-300"></i>
+                            <span class="font-medium">Engraving Artists</span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="showPage('calendar')" id="btn-calendar" class="nav-btn flex items-center gap-3 p-3.5 rounded-xl hover:bg-amber-50 dark:hover:bg-white/5 group">
+                            <i data-lucide="calendar-clock" class="w-5 h-5 dark:text-gray-300"></i>
+                            <span class="font-medium">Prod. Schedule</span>
+                        </a>
+                    </div>
+                </nav>
+                <div class="sidebar-logout pt-6 mt-6 border-t border-gold/20 dark:border-gray-700">
+                    <button onclick="handleLogout()" class="w-full flex items-center justify-center gap-3 p-3.5 rounded-xl bg-gold/10 text-gold dark:text-amber-300 hover:bg-gold/20 transition-all group">
+                        <i data-lucide="log-out" class="w-5 h-5 group-hover:scale-110"></i>
+                        <span class="font-medium text-sm">Logout</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT: TROPHY SHOP DASH -->
+        <main class="flex-1 lg:ml-[280px] p-4 sm:p-6 md:p-8 transition-all duration-300 w-full max-w-full overflow-x-hidden">
+            <header class="flex items-center justify-between mb-6 sm:mb-8 flex-wrap gap-3">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3">
+                        <button onclick="toggleSidebar()" class="lg:hidden p-2.5 bg-white dark:bg-[#11101b] rounded-xl shadow-md border border-amber-200 dark:border-gray-700">
+                            <i data-lucide="menu" class="w-5 h-5 sm:w-6 sm:h-6 dark:text-gray-200"></i>
+                        </button>
+                        <div>
+                            <h1 id="pageTitle" class="text-xl sm:text-2xl font-extrabold tracking-tight uppercase gold-text">TROPHY & AWARDS DASH</h1>
+                            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-300 font-medium mt-0.5">
+                                <span class="text-amber-700 dark:text-amber-400 font-semibold">✨ Laser engraving · Crystal trophies · Corporate awards · personalized plaques</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="top-actions flex items-center gap-3">
+                    <div class="hidden sm:flex items-center gap-2 bg-white dark:bg-[#11101b] px-3 py-2 rounded-xl shadow-md border dark:border-gray-700">
+                        <i data-lucide="clock" class="w-4 h-4 text-gold dark:text-amber-400"></i>
+                        <span class="text-xs font-medium dark:text-gray-200" id="liveTime">10:30 AM</span>
+                    </div>
+                    <button onclick="showPage('quote')" class="relative w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center hover:scale-105 transition">
+                        <i data-lucide="message-square" class="w-5 h-5 text-gold dark:text-amber-400"></i>
+                        <span class="absolute -top-1 -right-1 bg-gold text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">5</span>
+                    </button>
+                    <button onclick="toggleDirection()" class="p-2.5 bg-white dark:bg-[#11101b] rounded-xl shadow-md border border-amber-300 dark:border-gray-700 hover:bg-amber-50 transition-all">
+                        <i class="fa-solid fa-arrow-right-arrow-left text-gold dark:text-amber-400"></i>
+                    </button>
+                    <button onclick="toggleDarkMode()" class="p-2.5 bg-white dark:bg-[#11101b] rounded-xl shadow-md hover:scale-110 transition-all">
+                        <i id="themeIcon" data-lucide="moon" class="w-5 h-5 text-gold dark:text-amber-400"></i>
+                    </button>
+                    <div class="hidden sm:flex items-center gap-2 bg-white dark:bg-[#11101b] pl-2 pr-3 py-1.5 rounded-xl shadow-md border border-amber-200 dark:border-gray-700">
+                        <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold dark:text-amber-400">
+                            <i class="fa-solid fa-engrave text-sm"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <p class="font-medium text-xs dark:text-gray-100">Master Engraver</p>
+                            <p class="text-[8px] text-gold dark:text-amber-400 font-bold">Alison K.</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Hero visual: trophies showcase (replaces embroidery imagery) -->
+            <div class="mb-8 rounded-2xl overflow-hidden shadow-xl border border-gold/20 dark:border-gold/30 bg-gradient-to-r from-amber-900/10 to-stone-800/5">
+                <div class="relative w-full h-48 lg:h-56 bg-[url('./img/about1.webp')] bg-center bg-cover flex items-center justify-center">
+                    <div class="absolute inset-0 bg-black/30 backdrop-brightness-75 flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-trophy text-6xl text-white drop-shadow-lg mb-2"></i>
+                        <p class="text-white font-bold text-xl tracking-wider drop-shadow">Custom Engraved Excellence</p>
+                    </div>
+                </div>
+            </div>
+            <div id="mainDisplay" class="space-y-6">
+                <!-- DASHBOARD with trophy/engraving metrics -->
+                <div id="page-dashboard" class="page-node active">
+                    <div class="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                        <div class="engrave-card bg-white dark:bg-[#15121f] p-5 rounded-2xl shadow-sm"><div class="flex justify-between"><p class="text-[9px] font-bold text-gold dark:text-amber-400 uppercase">ACTIVE AWARD ORDERS</p><i class="fa-regular fa-gem text-gold dark:text-amber-400 text-xl"></i></div><h3 class="text-3xl font-bold mt-1 dark:text-white">14</h3><div class="flex items-center gap-2 mt-2"><i data-lucide="trending-up" class="w-3 h-3 text-green-600 dark:text-green-400"></i><span class="text-[10px] dark:text-gray-300">+7 corporate bulk</span></div></div>
+                        <div class="engrave-card p-5 rounded-2xl"><p class="text-[9px] font-bold text-bronze dark:text-amber-400 uppercase">QUOTES PENDING</p><h3 class="text-3xl font-bold dark:text-white">6</h3><div class="mt-2"><span class="text-[10px] dark:text-gray-300">🏅 3 crystal awards, 2 plaques</span></div></div>
+                        <div class="engrave-card p-5 rounded-2xl"><p class="text-[9px] font-bold text-gold dark:text-amber-400 uppercase">MONTHLY REVENUE</p><h3 class="text-3xl font-bold dark:text-white">$23.8k</h3><div class="text-[10px] text-green-600 dark:text-green-400">↑ +27% vs last month</div></div>
+                        <div class="engrave-card p-5 rounded-2xl"><p class="text-[9px] font-bold text-gold dark:text-amber-400 uppercase">CRAFT SAT.</p><h3 class="text-3xl font-bold dark:text-white">4.98 ★</h3><div class="text-[10px] dark:text-gray-300">from 89 reviews</div></div>
+                    </div>
+                    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+                        <div class="lg:col-span-2 engrave-card p-5 rounded-2xl"><h4 class="font-bold text-sm uppercase flex gap-2 items-center dark:text-gray-100"><i class="fa-solid fa-chart-line"></i> AWARD CATEGORY TRENDS (Q2)</h4><canvas id="trendChart" height="180" class="mt-2"></canvas></div>
+                        <div class="engrave-card p-5 rounded-2xl"><h4 class="font-bold text-sm uppercase dark:text-gray-100">ENGRAVING TYPES %</h4><canvas id="patchTypeChart" height="160"></canvas><div class="grid grid-cols-2 gap-1 text-[9px] mt-2 text-center dark:text-gray-300"><span>🏆 Crystal 42%</span><span>🏅 Metal Plaque 33%</span><span>✨ Wood/Glass 25%</span></div></div>
+                    </div>
+                    <div class="engrave-card p-5 rounded-2xl"><div class="flex justify-between"><h4 class="font-bold uppercase text-sm dark:text-gray-100">📋 RECENT ENGRAVING QUOTES</h4><button onclick="showPage('quote')" class="text-gold dark:text-amber-400 text-[9px] font-bold">View all →</button></div><div class="space-y-3 mt-3"><div class="flex items-center justify-between p-3 bg-amber-50/60 dark:bg-amber-900/20 rounded-xl"><div class="flex gap-3"><i class="fa-solid fa-trophy text-gold"></i><div><p class="text-xs font-bold dark:text-gray-100">National Hockey League</p><p class="text-[9px] dark:text-gray-300">20x crystal MVP awards + engraving</p></div></div><span class="text-[9px] font-semibold text-bronze dark:text-amber-400">Deposit paid</span></div><div class="flex items-center justify-between p-3 bg-amber-50/60 dark:bg-amber-900/20 rounded-xl"><div class="flex gap-3"><i class="fa-regular fa-building"></i><div><p class="text-xs font-bold dark:text-gray-100">Summit Tech Corp</p><p class="text-[9px] dark:text-gray-300">40 laser-engraved glass awards</p></div></div><span class="text-[9px] font-semibold text-green-600 dark:text-green-400">Quote accepted</span></div></div></div>
+                </div>
+                <!-- ORDERS PAGE with trophy items -->
+                <div id="page-orders" class="page-node"><div class="engrave-card p-5 rounded-2xl"><div class="flex flex-wrap justify-between items-center"><h3 class="font-bold text-lg uppercase dark:text-white">🏅 Active Engraving Orders</h3><button class="bg-gold text-white text-[9px] px-5 py-2 rounded-full shadow font-bold">+ New Award Order</button></div><div class="overflow-x-auto mt-4"><table class="w-full text-left"><thead class="border-b dark:border-amber-800/30 text-[9px] font-bold text-gold dark:text-amber-400"><tr><th>CLIENT</th><th>AWARD TYPE</th><th>QTY</th><th>STATUS</th><th>DUE DATE</th></tr></thead><tbody class="text-xs dark:text-gray-200"><tr class="border-b dark:border-amber-800/20"><td class="py-3">Apex Motorsports</td><td>Crystal Trophy + logo etch</td><td>12</td><td><span class="status-badge bg-gold/20">Laser setup</span></td><td>Jun 10</td></tr><tr class="border-b"><td>Downtown Rotary Club</td><td>Walnut Plaque / Gold foil</td><td>25</td><td><span class="status-badge bg-bronze/30">Engraving in progress</span></td><td>Jun 05</td></tr><tr><td>Elite Cheer Nationals</td><td>Resin medals + ribbon</td><td>210</td><td><span class="status-badge bg-gold/20">Digitizing art</span></td><td>Jun 18</td></tr></tbody></table></div></div></div>
+                <div id="page-clients" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold mb-4 dark:text-white">🤝 Corporate & Sports Clients</h3><div class="grid sm:grid-cols-2 gap-3"><div class="p-3 bg-gold/5 dark:bg-amber-900/20 rounded-xl flex justify-between"><span class="font-bold dark:text-gray-100">Premier Soccer League</span><span class="text-gold">350+ trophies</span></div><div class="p-3 bg-gold/5 dark:bg-amber-900/20 rounded-xl flex justify-between"><span class="font-bold dark:text-gray-100">Heritage Golf Club</span><span class="text-bronze">Annual championship</span></div><div class="p-3 bg-gold/5 dark:bg-amber-900/20 rounded-xl flex justify-between"><span class="font-bold dark:text-gray-100">Tech Innovators Inc</span><span class="text-gold">Custom glass awards</span></div></div></div></div>
+                <div id="page-quote" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold mb-3 dark:text-white">✍️ Quote Requests (Laser Engraving)</h3><div class="space-y-3"><div class="p-4 border-l-4 border-gold bg-gold/5 dark:bg-amber-900/20 rounded-xl"><p class="font-bold dark:text-gray-100">"Legacy Gala" — 100 acrylic awards</p><p class="text-xs dark:text-gray-300">custom etching of logo, translucent base. Est. $2,450</p><button class="mt-2 text-gold dark:text-amber-400 text-[9px] font-bold">Convert to order →</button></div><div class="p-4 border-l-4 border-bronze bg-amber-50/40 dark:bg-amber-900/20 rounded-xl"><p class="font-bold dark:text-gray-100">Western Riding Association</p><p class="text-xs dark:text-gray-300">Belt buckles + horse awards, quantity 85</p><button class="mt-2 text-gold dark:text-amber-400 text-[9px] font-bold">Create estimate</button></div></div></div></div>
+                <div id="page-portfolio" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold uppercase mb-3 dark:text-white">✨ Masterpiece Awards Gallery</h3><div class="grid grid-cols-2 sm:grid-cols-3 gap-4"><div class="rounded-xl overflow-hidden shadow-md border dark:border-gray-700 bg-white"><div class="h-28 bg-gradient-to-br from-amber-200 to-amber-500 flex items-center justify-center"><i class="fa-solid fa-trophy text-5xl text-white"></i></div><p class="text-[9px] p-2 font-bold text-center">Crystal Eagle Trophy</p></div><div class="rounded-xl overflow-hidden shadow-md border dark:border-gray-700 bg-white"><div class="h-28 bg-gradient-to-tr from-stone-400 to-stone-600 flex items-center justify-center"><i class="fa-solid fa-medal text-5xl text-white"></i></div><p class="text-[9px] p-2 font-bold text-center">Gold Plaque Set</p></div><div class="rounded-xl overflow-hidden shadow-md border dark:border-gray-700 bg-white"><div class="h-28 bg-gradient-to-r from-amber-700 to-amber-900 flex items-center justify-center"><i class="fa-regular fa-gem text-5xl text-white"></i></div><p class="text-[9px] p-2 font-bold text-center">Engraved Glass Star</p></div></div></div></div>
+                <div id="page-inventory" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold mb-4 dark:text-white">📦 Crystal & Metal Inventory</h3><div class="space-y-3"><div><div class="flex justify-between text-xs font-bold"><span class="dark:text-gray-100">Optical Crystal Blanks (5" - 9")</span><span class="text-gold">Low: 22%</span></div><div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full mt-1"><div class="bg-gold w-[22%] h-2 rounded-full"></div></div></div><div><div class="flex justify-between text-xs dark:text-gray-200"><span>Brass / Silver Plates</span><span class="text-green-700 dark:text-green-400">68%</span></div><div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full"><div class="bg-bronze w-[68%] h-2 rounded-full"></div></div></div><p class="text-[9px] mt-2 italic dark:text-gray-300">⚠️ Crystal bases reorder suggested (lead time 9 days)</p></div></div></div>
+                <div id="page-crew" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold dark:text-white">🖌️ Master Engravers & Designers</h3><div class="grid sm:grid-cols-2 gap-3 mt-3"><div class="flex gap-3 p-3 bg-gold/5 dark:bg-amber-900/20 rounded-xl"><div class="w-9 h-9 rounded-full bg-gold flex items-center justify-center text-white font-bold">RD</div><div><p class="font-bold dark:text-gray-100">Rafael Diaz</p><p class="text-[9px] dark:text-gray-300">Laser specialist · 12yrs</p></div></div><div class="flex gap-3 p-3 bg-gold/5 dark:bg-amber-900/20 rounded-xl"><div class="w-9 h-9 rounded-full bg-bronze flex items-center justify-center text-white">SW</div><div><p class="font-bold dark:text-gray-100">Sage Wu</p><p class="text-[9px] dark:text-gray-300">Crystal engraving artist</p></div></div></div></div></div>
+                <div id="page-calendar" class="page-node"><div class="engrave-card p-5"><h3 class="font-bold dark:text-white">📅 Production Calendar (Engraving)</h3><div class="mt-3 space-y-2"><div class="flex justify-between border-b dark:border-amber-800/30 pb-2"><span class="text-xs font-bold dark:text-gray-100">Mon 2 June</span><span class="text-xs dark:text-gray-200">🏆 35x Golf Tourney Trophies - etching</span><span class="text-gold dark:text-amber-400 text-[9px]">In queue</span></div><div class="flex justify-between border-b dark:border-amber-800/30 pb-2"><span class="text-xs font-bold">Tue 3 June</span><span class="text-xs">💼 Corporate Crystal Recognition</span><span class="text-green-600 dark:text-green-400 text-[9px]">Art approved</span></div><div class="flex justify-between"><span class="text-xs font-bold">Thu 5 June</span><span class="text-xs">🌟 50x Plaques for School Dist.</span><span class="text-bronze dark:text-amber-400 text-[9px]">Material ready</span></div></div></div></div>
+            </div>
+        </main>
+    </div>
+    <script>
+        lucide.createIcons();
+
+        function toggleSidebar() { 
+            const s = document.getElementById('sidebar');
+            const o = document.getElementById('sidebarOverlay');
+            s.classList.toggle('-translate-x-full');
+            if(window.innerWidth < 1024 && o) o.classList.toggle('hidden');
+            setTimeout(() => lucide.createIcons(), 120);
+        }
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('trophyTheme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+            updateThemeIcon();
+            updateChartColors();
+        }
+        function updateChartColors() {
+            const c = isDark() ? '#f5e2c0' : '#2c2a2e';
+            const gridColor = isDark() ? 'rgba(255,245,210,0.12)' : 'rgba(0,0,0,0.08)';
+            if(trendChart) {
+                trendChart.options.color = c;
+                if(trendChart.options.scales) {
+                    if(trendChart.options.scales.x) { trendChart.options.scales.x.ticks.color = c; trendChart.options.scales.x.grid.color = gridColor; }
+                    if(trendChart.options.scales.y) { trendChart.options.scales.y.ticks.color = c; trendChart.options.scales.y.grid.color = gridColor; }
+                }
+                trendChart.update();
+            }
+            if(typeChart) {
+                typeChart.options.color = c;
+                if(typeChart.options.plugins?.legend?.labels) typeChart.options.plugins.legend.labels.color = c;
+                typeChart.update();
+            }
+        }
+        function updateThemeIcon() {
+            const icon = document.getElementById('themeIcon');
+            if(icon) {
+                const isDark = document.documentElement.classList.contains('dark');
+                icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
+                lucide.createIcons();
+            }
+        }
+        if(localStorage.getItem('trophyTheme') === 'dark') document.documentElement.classList.add('dark');
+        updateThemeIcon();
+
+        function toggleDirection() {
+            const html = document.getElementById('htmlTag');
+            html.dir = html.dir === 'rtl' ? 'ltr' : 'rtl';
+            lucide.createIcons();
+        }
+        function handleLogout() { alert("Logged out from TrophyCraft Admin. See you soon!"); }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) target.classList.add('active');
+            const titles = { dashboard:'TROPHY & AWARDS DASH', orders:'ACTIVE ENGRAVING ORDERS', clients:'CORPORATE CLIENTS', quote:'ENGRAVING QUOTES', portfolio:'AWARD GALLERY', inventory:'CRYSTAL & METAL', crew:'ENGRAVING ARTISTS', calendar:'PROD SCHEDULE' };
+            document.getElementById('pageTitle').innerText = titles[pageId] || pageId.toUpperCase();
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('sidebar-active'));
+            const activeBtn = document.getElementById('btn-' + pageId);
+            if(activeBtn) activeBtn.classList.add('sidebar-active');
+            if(window.innerWidth < 1024) toggleSidebar();
+            lucide.createIcons();
+        }
+
+        function updateLiveTime() {
+            let d = new Date();
+            if(document.getElementById('liveTime')) document.getElementById('liveTime').innerText = d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) + ' EST';
+        }
+        setInterval(updateLiveTime, 1000); updateLiveTime();
+
+        const isDark = () => document.documentElement.classList.contains('dark');
+        let trendChart, typeChart;
+        function initCharts() {
+            const c = isDark() ? '#f8e7bf' : '#3a3222';
+            const gc = isDark() ? 'rgba(220,190,100,0.15)' : 'rgba(0,0,0,0.06)';
+            const trendCtx = document.getElementById('trendChart')?.getContext('2d');
+            if(trendCtx) trendChart = new Chart(trendCtx, { type: 'line', data: { labels: ['Jan','Feb','Mar','Apr','May'], datasets: [{ label: 'Crystal Awards', data: [32,38,45,53,68], borderColor: '#c8a246', tension: 0.3, fill: false }, { label: 'Metal/Glass Plaques', data: [24,30,37,42,51], borderColor: '#b58a3a', tension: 0.3 }] }, options: { responsive: true, maintainAspectRatio: true, color: c, scales: { x: { ticks: { color: c }, grid: { color: gc } }, y: { ticks: { color: c }, grid: { color: gc } } } } });
+            const typeCtx = document.getElementById('patchTypeChart')?.getContext('2d');
+            if(typeCtx) typeChart = new Chart(typeCtx, { type: 'doughnut', data: { labels: ['Crystal','Metal Plaque','Wood/Glass'], datasets: [{ data: [42,33,25], backgroundColor: ['#c8a246','#b5873a','#ddb45e'], borderWidth: 0 }] }, options: { cutout: '60%', color: c, plugins: { legend: { position: 'bottom', labels: { font: { size: 8 }, color: c } } } } });
+        }
+        document.addEventListener('DOMContentLoaded', () => { showPage('dashboard'); lucide.createIcons(); initCharts(); });
+    </script>
+</body>
+</html>

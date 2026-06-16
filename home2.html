@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home 2 - TrophyCraft | Premium Awards & Trophies</title>
+  <meta name="description" content="Premium custom trophy and award solutions for every achievement.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root { --gold: #b8860b; --gold-light: #d4a017; }
+    .text-gold { color: var(--gold); }
+    .bg-gold { background-color: var(--gold); }
+    .border-gold { border-color: var(--gold); }
+    .hero-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; }
+    .hero-slide.active { opacity: 1; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%); }
+    .showcase-card { position: relative; overflow: hidden; border-radius: 0.75rem; cursor: pointer; }
+    .showcase-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .showcase-card:hover img { transform: scale(1.1); }
+    .showcase-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; opacity: 0; transition: opacity 0.4s ease; }
+    .showcase-card:hover .showcase-overlay { opacity: 1; }
+    .showcase-overlay h3 { color: #fff; font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .showcase-overlay p { color: var(--gold-light); font-size: 0.875rem; }
+    .stat-item { text-align: center; padding: 2rem; }
+    .stat-number { font-size: 3rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 1rem; color: #94a3b8; margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .testimonial-card { background: #fff; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 40px rgba(0,0,0,0.08); position: relative; }
+    .testimonial-card::before { content: '\f10d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; color: rgba(184,134,11,0.15); }
+    .corporate-card { background: #fff; border-radius: 1rem; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.06); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .corporate-card:hover { transform: translateY(-8px); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+    .corporate-card .icon-wrap { width: 5rem; height: 5rem; margin: 0 auto 1.5rem; background: linear-gradient(135deg, var(--gold), var(--gold-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; }
+    .cta-section { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(184,134,11,0.08) 0%, transparent 70%); border-radius: 50%; }
+    .cta-section::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(184,134,11,0.06) 0%, transparent 70%); border-radius: 50%; }
+    .gold-btn { background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%); color: #fff; padding: 0.875rem 2.5rem; border-radius: 9999px; font-weight: 700; transition: transform 0.3s ease, box-shadow 0.3s ease; display: inline-block; }
+    .gold-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(184,134,11,0.4); }
+    .gold-outline-btn { border: 2px solid var(--gold); color: var(--gold); padding: 0.875rem 2.5rem; border-radius: 9999px; font-weight: 700; transition: all 0.3s ease; display: inline-block; background: transparent; }
+    .gold-outline-btn:hover { background: var(--gold); color: #fff; }
+    .badge { display: inline-block; background: rgba(184,134,11,0.12); color: var(--gold); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.15em; padding: 0.4rem 1rem; border-radius: 9999px; border: 1px solid rgba(184,134,11,0.25); }
+    .section-padding { padding: 5rem 0; }
+    @media (max-width: 768px) { .stat-number { font-size: 2.25rem; } }
+  </style>
+</head>
+<body>
+  <!-- Navbar auto-inserted by navbar.js -->
+
+  <!-- ===== SECTION 1: Premium Hero ===== -->
+<section id="hero" class="relative h-screen min-h-[600px] overflow-hidden bg-gray-950">
+  
+  <!-- Background Slider Container -->
+  <div class="absolute inset-0 z-0">
+    <!-- First Image (Initial Active) -->
+    <div class="hero-slide active absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out transform scale-100 opacity-100" style="background-image: url('./img/home2-1.webp');"></div>
+    <!-- Second Image -->
+    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out transform scale-105 opacity-0" style="background-image: url('./img/home2-2.webp');"></div>
+    <!-- Third Image -->
+    <div class="hero-slide absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out transform scale-105 opacity-0" style="background-image: url('./img/home2-13.webp');"></div>
+  </div>
+
+  <!-- Premium Glassmorphism & Gradient Overlay for readability -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-1"></div>
+  <div class="absolute inset-0 bg-black/30 backdrop-blur-[2px] z-1"></div>
+
+  <!-- Content Layer -->
+  <div class="relative z-10 h-full flex items-center">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-12 w-full">
+      <div class="max-w-3xl w-full">
+        
+        <!-- Badge -->
+        <span class="badge mb-4 sm:mb-6 inline-flex items-center bg-gold/10 border border-gold/30 text-gold px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide animate-fadeInDown">
+          <i class="fas fa-trophy mr-2 text-xs"></i>Premium Award Craftsmanship
+        </span>
+        
+        <!-- Heading -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 sm:mb-6 animate-fadeInUp delay-200" style="opacity: 0; animation-fill-mode: forwards;">
+          Trophies That<br><span class="text-gold bg-gradient-to-r from-amber-400 to-yellow-500 bg-clip-text text-transparent">Honor Greatness</span>
+        </h1>
+        
+        <!-- Paragraph -->
+        <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 max-w-2xl leading-relaxed animate-fadeInUp delay-400" style="opacity: 0; animation-fill-mode: forwards;">
+          For over 25 years, TrophyCraft has been the premier destination for custom trophies, championship rings, corporate awards, and recognition plaques. Every piece is handcrafted to celebrate extraordinary achievement.
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row flex-wrap gap-4 mb-8 sm:mb-12 animate-fadeInUp delay-600" style="opacity: 0; animation-fill-mode: forwards;">
+          <a href="#showcase" class="gold-btn text-center text-sm sm:text-base px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-gray-950 font-bold rounded-lg shadow-lg shadow-amber-500/20 transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fas fa-search"></i>Explore Awards
+          </a>
+          <a href="#contact" class="gold-outline-btn text-center text-sm sm:text-base px-6 py-3 bg-transparent text-white border border-white/40 hover:border-white hover:bg-white hover:text-gray-950 font-semibold rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+            <i class="fas fa-phone-alt"></i>Get a Quote
+          </a>
+        </div>
+        
+        <!-- Features Grid (Fully Responsive Grid Layout) -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-white/10 text-xs sm:text-sm text-gray-400">
+          <div class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> <span>Custom Designs</span></div>
+          <div class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> <span>Fast Turnaround</span></div>
+          <div class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> <span>Free Engraving</span></div>
+          <div class="flex items-center gap-2"><i class="fas fa-check-circle text-amber-500 text-sm"></i> <span>Ship Worldwide</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- Include standard JS logic at the end of body or inside script tag -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.hero-slide');
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5 seconds change limit
+
+    function nextSlide() {
+      // Current active slide out animation reset
+      slides[currentSlide].classList.remove('opacity-100', 'scale-100');
+      slides[currentSlide].classList.add('opacity-0', 'scale-105');
+      
+      // Index update logic
+      currentSlide = (currentSlide + 1) % slides.length;
+      
+      // Next slide setup active smooth entry
+      slides[currentSlide].classList.remove('opacity-0', 'scale-105');
+      slides[currentSlide].classList.add('opacity-100', 'scale-100');
+    }
+
+    // Set auto slide loop
+    setInterval(nextSlide, slideInterval);
+  });
+</script>
+
+  <!-- ===== SECTION 2: Award Showcase ===== -->
+  <section id="showcase" class="section-padding bg-gray-100" data-aos="fade-up">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <span class="badge"><i class="fas fa-star mr-2"></i>Our Collection</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">Premium Award Showcase</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Browse our signature collection of championship trophies, corporate awards, and personalized recognition pieces crafted to perfection.</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="100">
+          <img src="./img/home2-3.webp" alt="Golden Championship Trophy" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Championship Trophy</h3>
+            <p>Solid brass with 24k gold finish</p>
+          </div>
+        </div>
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="200">
+          <img src="./img/home2-4.webp" alt="Corporate Crystal Award" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Corporate Crystal</h3>
+            <p>Optical crystal with laser engraving</p>
+          </div>
+        </div>
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="300">
+          <img src="./img/home2-5.webp" alt="Medal of Excellence" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Medal of Excellence</h3>
+            <p>Gold-plated with custom ribbon</p>
+          </div>
+        </div>
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="100">
+          <img src="./img/home2-6.webp" alt="Custom Plaque" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Executive Plaque</h3>
+            <p>Walnut wood with brass plate</p>
+          </div>
+        </div>
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="200">
+          <img src="./img/home2-7.webp" alt="Perpetual Trophy" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Perpetual Trophy</h3>
+            <p>Engravable nameplate base</p>
+          </div>
+        </div>
+        <div class="showcase-card h-72" data-aos="zoom-in" data-aos-delay="300">
+          <img src="./img/home2-8.webp" alt="Recognition Ring" loading="lazy">
+          <div class="showcase-overlay">
+            <h3>Recognition Ring</h3>
+            <p>Sterling silver & gold inlay</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12" data-aos="fade-up">
+        <a href="#" class="gold-btn text-base"><i class="fas fa-th-large mr-2"></i>View Full Catalog</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3: Business Statistics ===== -->
+<section class="section-padding bg-slate-950 relative overflow-hidden py-24" data-aos="fade-up">
+  <!-- Premium Background Glow Elements -->
+  <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-slate-800/20 rounded-full blur-[100px] pointer-events-none"></div>
+  
+  <!-- Subtle Overlay Pattern Background -->
+  <div class="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none" 
+       style="background-image: url('./img/home2-10.webp'); background-size: cover; background-position: center;">
+  </div>
+
+  <div class="container mx-auto px-6 lg:px-12 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 backdrop-blur-md mb-4">
+        <i class="fas fa-chart-line"></i> By the Numbers
+      </span>
+      <h2 class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 mt-2 mb-4 tracking-tight">
+        Our Legacy in Numbers
+      </h2>
+      <p class="text-base md:text-lg text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+        A quarter-century of crafting excellence speaks for itself. Here's what we've achieved.
+      </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      
+      <!-- Card 1: Trophies Crafted -->
+      <div class="group relative p-6 md:p-8 rounded-2xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-xl hover:border-amber-500/40 transition-all duration-500 text-center overflow-hidden" data-aos="flip-up" data-aos-delay="100">
+        <!-- Hover Gradient Spotlight Effect -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-amber-500/5 to-transparent transition-opacity duration-500 pointer-events-none"></div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-2xl text-amber-400 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-500 shadow-lg shadow-amber-500/5">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+            <span class="counter" data-target="25000">0</span>+
+          </div>
+          <div class="text-xs md:text-sm font-medium tracking-wide text-slate-400 uppercase group-hover:text-slate-300 transition-colors duration-300">
+            Trophies Crafted
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Corporate Clients -->
+      <div class="group relative p-6 md:p-8 rounded-2xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-xl hover:border-amber-500/40 transition-all duration-500 text-center overflow-hidden" data-aos="flip-up" data-aos-delay="200">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-amber-500/5 to-transparent transition-opacity duration-500 pointer-events-none"></div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-2xl text-amber-400 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-500 shadow-lg shadow-amber-500/5">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+            <span class="counter" data-target="1500">0</span>+
+          </div>
+          <div class="text-xs md:text-sm font-medium tracking-wide text-slate-400 uppercase group-hover:text-slate-300 transition-colors duration-300">
+            Corporate Clients
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Countries Shipped -->
+      <div class="group relative p-6 md:p-8 rounded-2xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-xl hover:border-amber-500/40 transition-all duration-500 text-center overflow-hidden" data-aos="flip-up" data-aos-delay="300">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-amber-500/5 to-transparent transition-opacity duration-500 pointer-events-none"></div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-2xl text-amber-400 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-500 shadow-lg shadow-amber-500/5">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+            <span class="counter" data-target="48">0</span>
+          </div>
+          <div class="text-xs md:text-sm font-medium tracking-wide text-slate-400 uppercase group-hover:text-slate-300 transition-colors duration-300">
+            Countries Shipped
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Client Satisfaction -->
+      <div class="group relative p-6 md:p-8 rounded-2xl bg-slate-900/40 border border-slate-800/60 backdrop-blur-xl hover:border-amber-500/40 transition-all duration-500 text-center overflow-hidden" data-aos="flip-up" data-aos-delay="400">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-b from-amber-500/5 to-transparent transition-opacity duration-500 pointer-events-none"></div>
+        
+        <div class="relative z-10">
+          <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-amber-500/10 flex items-center justify-center border border-amber-500/20 text-2xl text-amber-400 group-hover:scale-110 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-500 shadow-lg shadow-amber-500/5">
+            <i class="fas fa-smile"></i>
+          </div>
+          <div class="text-3xl md:text-4xl font-black text-white mb-2 tracking-tight">
+            <span class="counter" data-target="99">0</span>%
+          </div>
+          <div class="text-xs md:text-sm font-medium tracking-wide text-slate-400 uppercase group-hover:text-slate-300 transition-colors duration-300">
+            Client Satisfaction
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- ===== SECTION 4: Customer Testimonials ===== -->
+  <section class="section-padding bg-amber-50" data-aos="fade-up">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="text-center mb-14">
+        <span class="badge"><i class="fas fa-quote-left mr-2"></i>Testimonials</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">What Our Clients Say</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Hear from the organizations and individuals who trust us with their most important recognitions.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="flex items-center gap-1 text-amber-500 mb-4">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"TrophyCraft delivered 200 custom crystal awards for our annual gala. The engraving precision was flawless and every piece looked magnificent. Our executives were blown away."</p>
+          <div class="flex items-center gap-3">
+            <img src="./img/home2-9.webp" alt="Robert Chen" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+            <div>
+              <div class="font-semibold text-gray-900">Robert Chen</div>
+              <div class="text-sm text-gray-500">CEO, Pacific Innovations</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="flex items-center gap-1 text-amber-500 mb-4">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"We needed championship trophies for our statewide  tight deadline. TrophyCraft didn't just meet the deadline — they exceeded it with the most beautiful trophies we've ever seen."</p>
+          <div class="flex items-center gap-3">
+            <img src="./img/home2-10.webp" alt="Amanda Foster" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+            <div>
+              <div class="font-semibold text-gray-900">Amanda Foster</div>
+              <div class="text-sm text-gray-500">Director, State Athletics</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="flex items-center gap-1 text-amber-500 mb-4">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"The perpetual trophy they designed for our foundation has become a cherished tradition. Every year we add another nameplate. The quality is simply unmatched after a decade of use."</p>
+          <div class="flex items-center gap-3">
+            <img src="./img/home2-11.webp" alt="James Kowalski" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+            <div>
+              <div class="font-semibold text-gray-900">James Kowalski</div>
+              <div class="text-sm text-gray-500">President, Kowalski Group</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="flex items-center gap-1 text-amber-500 mb-4">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-700 mb-6 leading-relaxed">"As a small business owner, I wanted  for my team's 10-year anniversary. TrophyCraft treated my order like it was their most important. The personal touch was incredible."</p>
+          <div class="flex items-center gap-3">
+            <img src="./img/home2-12.webp" alt="Sarah Mitchell" class="w-12 h-12 rounded-full object-cover" loading="lazy">
+            <div>
+              <div class="font-semibold text-gray-900">Sarah Mitchell</div>
+              <div class="text-sm text-gray-500">Owner, Mitchell &amp; Co.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5: Corporate Award Solutions ===== -->
+  <section class="section-padding bg-gray-50" data-aos="fade-up">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="text-center mb-14">
+        <span class="badge"><i class="fas fa-briefcase mr-2"></i>Corporate Solutions</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">Enterprise Award Programs</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">End-to-end award solutions designed for organizations of every scale — from startup milestones to Fortune 500 galas.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="corporate-card" data-aos="flip-left" data-aos-delay="100">
+          <div class="icon-wrap"><i class="fas fa-sitemap"></i></div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Employee Recognition</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">Build a culture of appreciation with customizable service awards, sales achievement trophies, and annual milestone programs. Options include crystal, marble, brass, and eco-friendly materials.</p>
+          <ul class="text-left text-sm text-gray-500 space-y-2">
+            <li><i class="fas fa-check text-gold mr-2"></i>Years-of-service plaques</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Sales leader trophies</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Team appreciation awards</li>
+          </ul>
+        </div>
+        <div class="corporate-card" data-aos="flip-left" data-aos-delay="200">
+          <div class="icon-wrap"><i class="fas fa-medal"></i></div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Sports & Championships</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">From little league to professional leagues, we produce tournament commemorative trophies, produce championship  commemorative rings, medals, and commemorative plaques that athletes cherish for a lifetime.</p>
+          <ul class="text-left text-sm text-gray-500 space-y-2">
+            <li><i class="fas fa-check text-gold mr-2"></i>Custom trophy cups</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Championship rings</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Medals & ribbons</li>
+          </ul>
+        </div>
+        <div class="corporate-card" data-aos="flip-left" data-aos-delay="300">
+          <div class="icon-wrap"><i class="fas fa-gem"></i></div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Custom & Executive Gifts</h3>
+          <p class="text-gray-600 leading-relaxed mb-6">Make a lasting impression with executive gift sets, retirement plaques, commemorative coins, and personalized crystal pieces. Laser impression with executive engraving ensures pixel-perfect detail.</p>
+          <ul class="text-left text-sm text-gray-500 space-y-2">
+            <li><i class="fas fa-check text-gold mr-2"></i>Engraved crystal awards</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Executive desk sets</li>
+            <li><i class="fas fa-check text-gold mr-2"></i>Custom commemorative coins</li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center mt-12" data-aos="fade-up">
+        <a href="#" class="gold-btn text-base"><i class="fas fa-pen-alt mr-2"></i>Request a Corporate Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6: Quality & Process ===== -->
+  <section id="process" class="section-padding bg-white" data-aos="fade-up">
+    <div class="container mx-auto px-6 lg:px-12">
+      <div class="text-center mb-14" data-aos="fade-up">
+        <span class="badge"><i class="fas fa-cogs mr-2"></i>Our Process</span>
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mt-4 mb-4">How We Bring Your Vision to Life</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">From initial consultation to final delivery, every step of our process is designed for excellence.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5 text-3xl text-amber-600 font-bold">1</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Consultation</h3>
+          <p class="text-gray-600">We discuss your vision, budget, and timeline. Share reference images or let our designers create something original for you.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5 text-3xl text-amber-600 font-bold">2</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Design & Proof</h3>
+          <p class="text-gray-600">Our team creates detailed 3D renderings and engraving proofs. You approve every detail before production begins.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+          <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5 text-3xl text-amber-600 font-bold">3</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Crafting</h3>
+          <p class="text-gray-600">Master craftsmen bring your design to life using precision CNC, laser engraving, and hand-finishing techniques.</p>
+        </div>
+        <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+          <div class="w-20 h-20 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-5 text-3xl text-amber-600 font-bold">4</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Delivery</h3>
+          <p class="text-gray-600">Each piece is carefully packaged and shipped with tracking. We follow up to ensure your complete satisfaction.</p>
+        </div>
+      </div>
+
+      <div class="bg-gray-900 rounded-2xl overflow-hidden" data-aos="fade-up">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+          <div class="p-10 md:p-14 flex flex-col justify-center">
+            <span class="badge inline-block mb-4"><i class="fas fa-gem mr-2"></i>Premium Quality</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Crafted with<span class="text-amber-400"> Precision & Passion</span></h2>
+            <p class="text-gray-300 mb-6 leading-relaxed">Every TrophyCraft piece begins with the finest raw materials — K9 optical crystal, solid hardwoods, architectural metals, and scratch-resistant acrylics. Our artisans combine traditional hand-finishing techniques with state-of-the-art CNC and laser technology to produce awards that are as durable as they are beautiful.</p>
+            <div class="grid grid-cols-2 gap-6 mb-8">
+              <div>
+                <div class="text-3xl font-bold text-amber-400">5,000+</div>
+                <div class="text-gray-400 text-sm">Happy Clients</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-amber-400">99.8%</div>
+                <div class="text-gray-400 text-sm">Satisfaction Rate</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-4">
+              <a href="#showcase" class="gold-btn text-base"><i class="fas fa-search mr-2"></i>View Our Work</a>
+              <a href="contact.html" class="gold-outline-btn text-base text-white border-white hover:bg-white hover:text-gray-900"><i class="fas fa-pen-alt mr-2"></i>Start Your Project</a>
+            </div>
+          </div>
+          <div class="relative min-h-[400px] lg:min-h-full">
+            <img src="./img/home2-13.webp" alt="Craftsmanship" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-transparent to-transparent lg:bg-gradient-to-r lg:from-gray-900 lg:via-transparent lg:to-transparent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/navbar.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Hero slideshow
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      let current = 0;
+      function nextSlide() {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }
+      if (slides.length > 1) setInterval(nextSlide, 5000);
+    })();
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".counter");
+  
+  const startCounter = (counter) => {
+    const target = +counter.getAttribute("data-target");
+    // Target perusa irundha speed increase panna divided value
+    const speed = target > 1000 ? 50 : 20; 
+    const increment = target / speed;
+
+    const updateCount = () => {
+      const current = +counter.innerText;
+      if (current < target) {
+        counter.innerText = Math.ceil(current + increment);
+        setTimeout(updateCount, 30);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  };
+
+  // Scroll panni intha section varumpo mattum run aaga IntersectionObserver
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          startCounter(counter);
+          observer.unobserve(counter); // Oru vaati run aana podhum
+        }
+      });
+    },
+    { threshold: 0.5 } // 50% section screen-la theriyumpo start aagum
+  );
+
+  counters.forEach((counter) => observer.observe(counter));
+});
+  </script>
+</body>
+</html>

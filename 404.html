@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found | TrophyCraft</title>
+  <meta name="description" content="Oops! The page you're looking for has been misplaced. Let's get you back on track.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-404 {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-404::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(184, 134, 11, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(184, 134, 11, 0.04) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .trophy-pulse {
+      animation: trophyPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes trophyPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px rgba(184, 134, 11, 0.3));
+      }
+      50% {
+        transform: scale(1.08);
+        filter: drop-shadow(0 0 30px rgba(184, 134, 11, 0.6));
+      }
+    }
+
+    .trophy-float {
+      animation: trophyFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes trophyFloat {
+      0%, 100% { transform: translateY(0); }
+      33% { transform: translateY(-8px); }
+      66% { transform: translateY(4px); }
+    }
+
+    .sparkle-container {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .sparkle:nth-child(2) { top: 25%; right: 15%; animation-delay: 0.4s; }
+    .sparkle:nth-child(3) { top: 50%; left: 5%; animation-delay: 0.8s; }
+    .sparkle:nth-child(4) { bottom: 30%; right: 8%; animation-delay: 1.2s; }
+    .sparkle:nth-child(5) { bottom: 15%; left: 20%; animation-delay: 1.6s; }
+    .sparkle:nth-child(6) { top: 10%; right: 25%; animation-delay: 2s; }
+    .sparkle:nth-child(7) { bottom: 40%; left: 30%; animation-delay: 0.2s; }
+    .sparkle:nth-child(8) { top: 60%; right: 5%; animation-delay: 0.6s; }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .search-404 {
+      position: relative;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .search-404 input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 2px solid var(--border-color);
+      border-radius: 50px;
+      font-size: 0.95rem;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-404 input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(184, 134, 11, 0.1);
+    }
+
+    .search-404 i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #999;
+      font-size: 1rem;
+    }
+
+    .search-404 .search-results {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: none;
+      z-index: 10;
+    }
+
+    .search-404 .search-results.active {
+      display: block;
+    }
+
+    .search-404 .search-results a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .search-404 .search-results a:last-child {
+      border-bottom: none;
+    }
+
+    .search-404 .search-results a:hover {
+      background: var(--bg-section);
+      color: var(--primary);
+    }
+
+    .search-404 .search-results a i {
+      position: static;
+      transform: none;
+      width: 20px;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    .suggestion-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: var(--transition);
+    }
+
+    .suggestion-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .suggestion-card .suggestion-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      background: rgba(184, 134, 11, 0.1);
+      color: var(--primary);
+    }
+
+    .suggestion-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .suggestion-card p {
+      font-size: 0.8rem;
+      color: #888;
+      margin: 0;
+    }
+
+    .theme-toggle-404 {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow-md);
+    }
+
+    .theme-toggle-404:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: rotate(30deg);
+    }
+
+    .fun-message {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(184, 134, 11, 0.1);
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .bg-pattern-dots {
+      background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    @media (max-width: 640px) {
+      .suggestion-card p {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-404 .error-code {
+        font-size: 5rem !important;
+      }
+      .page-404 .error-icon {
+        font-size: 3.5rem !important;
+      }
+      .suggestion-card {
+        padding: 12px 16px;
+      }
+      .suggestion-card .suggestion-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-404 bg-pattern-dots">
+    <!-- Sparkle particles -->
+    <div class="sparkle-container">
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+    </div>
+
+    <!-- Dark Mode & RTL Toggles -->
+    <div style="position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; gap: 8px; align-items: center;">
+      <button class="theme-toggle-404" id="themeToggle404" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" id="themeIcon404"></i>
+      </button>
+      <button class="theme-toggle-404" id="rtlToggle404" aria-label="Toggle RTL layout" style="background: var(--bg-section); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-dark); font-size: 1.1rem; transition: all 0.3s ease;">
+        <i class="fas fa-exchange-alt"></i>
+      </button>
+    </div>
+
+    <a href="index.html" aria-label="Go to homepage" style="position: absolute; top: 30px; left: 30px; display: flex; align-items: center; gap: 10px; text-decoration: none; z-index: 100;">
+      <i class="fas fa-trophy" style="font-size: 1.8rem; color: var(--primary);"></i>
+      <span style="font-size: 1.3rem; font-weight: 800; color: var(--text-dark);">Trophy<span style="color: var(--primary);">Craft</span></span>
+    </a>
+
+    <div style="max-width: 620px; position: relative; z-index: 1;">
+      <!-- Trophy illustration with pulse -->
+      <div class="error-icon trophy-pulse" style="margin-bottom: 10px;">
+        <i class="fas fa-trophy trophy-float"></i>
+      </div>
+
+      <!-- Fun message badge -->
+      <div class="fun-message">
+        <i class="fas fa-compass"></i> You've ventured off the map!
+      </div>
+
+      <!-- Large 404 Text -->
+      <div class="error-code">404</div>
+
+      <!-- Error Message -->
+      <h2 style="font-size: 1.8rem; margin-bottom: 15px; color: var(--text-dark);">
+        Oops! Trophy Not Found
+      </h2>
+      <p style="color: var(--text-dark); opacity: 0.6; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.8; max-width: 480px; margin-left: auto; margin-right: auto;">
+        The page you're looking for seems to have been misplaced. Even our best engravers couldn't find it.
+        Let's get you back on track!
+      </p>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+        <a href="index.html" class="nav-btn nav-btn-primary" style="padding: 14px 28px; font-size: 1rem;">
+          <i class="fas fa-home"></i> Back to Home
+        </a>
+        <a href="contact.html" class="nav-btn nav-btn-outline" style="padding: 14px 28px; font-size: 1rem;">
+          <i class="fas fa-envelope"></i> Contact Support
+        </a>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-404">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput404" placeholder="Search the site..." autocomplete="off">
+        <div class="search-results" id="searchResults404">
+          <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+          <a href="products.html"><i class="fas fa-trophy"></i> Our Products</a>
+          <a href="services.html"><i class="fas fa-cog"></i> Our Services</a>
+          <a href="pricing.html"><i class="fas fa-tags"></i> Pricing</a>
+          <a href="contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+          <a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>
+          <a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+      </div>
+
+      <!-- Suggested Pages -->
+      <div style="margin-top: 35px;">
+        <p style="font-size: 0.9rem; font-weight: 600; color: var(--text-dark); margin-bottom: 14px;">
+          <i class="fas fa-lightbulb" style="color: var(--primary);"></i> Try these pages instead:
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <a href="index.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-home"></i></div>
+            <div>
+              <h4>Home</h4>
+              <p>Start your journey here</p>
+            </div>
+          </a>
+          <a href="products.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-trophy"></i></div>
+            <div>
+              <h4>Products</h4>
+              <p>Browse our collection</p>
+            </div>
+          </a>
+          <a href="services.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-cog"></i></div>
+            <div>
+              <h4>Services</h4>
+              <p>See what we offer</p>
+            </div>
+          </a>
+          <a href="about.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-info-circle"></i></div>
+            <div>
+              <h4>About Us</h4>
+              <p>Our story & team</p>
+            </div>
+          </a>
+          <a href="pricing.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-tags"></i></div>
+            <div>
+              <h4>Pricing</h4>
+              <p>View our packages</p>
+            </div>
+          </a>
+          <a href="contact.html" class="suggestion-card">
+            <div class="suggestion-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4>Contact</h4>
+              <p>Get in touch with us</p>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Auto redirect countdown -->
+      <p style="margin-top: 35px; font-size: 0.85rem; color: #888;">
+        Redirecting to home in <span id="countdown">10</span> seconds...
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Auto redirect with countdown
+    let seconds = 10;
+    const countdownEl = document.getElementById('countdown');
+    const timer = setInterval(function () {
+      seconds--;
+      if (countdownEl) countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+
+    // Dark mode support
+    const savedTheme404 = localStorage.getItem('trophyTheme');
+    const themeToggle404 = document.getElementById('themeToggle404');
+    const themeIcon404 = document.getElementById('themeIcon404');
+
+    if (savedTheme404 === 'dark') {
+      document.body.classList.add('dark');
+      themeIcon404.className = 'fas fa-sun';
+    }
+
+    themeToggle404.addEventListener('click', function () {
+      const isDark = document.body.classList.toggle('dark');
+      localStorage.setItem('trophyTheme', isDark ? 'dark' : 'light');
+      themeIcon404.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // RTL toggle
+    const rtlToggle404 = document.getElementById('rtlToggle404');
+    const html404 = document.documentElement;
+    const savedDir404 = localStorage.getItem('trophyDir');
+    if (savedDir404 === 'rtl') {
+      html404.setAttribute('dir', 'rtl');
+      html404.setAttribute('lang', 'ar');
+    }
+    if (rtlToggle404) {
+      rtlToggle404.addEventListener('click', function () {
+        const isRtl = html404.getAttribute('dir') === 'rtl';
+        html404.setAttribute('dir', isRtl ? 'ltr' : 'rtl');
+        html404.setAttribute('lang', isRtl ? 'en' : 'ar');
+        localStorage.setItem('trophyDir', isRtl ? 'ltr' : 'rtl');
+      });
+    }
+
+    // Search functionality
+    const searchInput = document.getElementById('searchInput404');
+    const searchResults = document.getElementById('searchResults404');
+    const pageLinks = searchResults.querySelectorAll('a');
+
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      let hasMatch = false;
+
+      pageLinks.forEach(function (link) {
+        const text = link.textContent.toLowerCase();
+        if (query && text.includes(query)) {
+          link.style.display = 'flex';
+          hasMatch = true;
+        } else {
+          link.style.display = 'none';
+        }
+      });
+
+      if (query && hasMatch) {
+        searchResults.classList.add('active');
+      } else {
+        searchResults.classList.remove('active');
+      }
+    });
+
+    searchInput.addEventListener('blur', function () {
+      setTimeout(function () {
+        searchResults.classList.remove('active');
+      }, 200);
+    });
+
+    searchInput.addEventListener('focus', function () {
+      if (this.value.trim() && searchResults.querySelector('a[style*="display: flex"]')) {
+        searchResults.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>
