@@ -1888,6 +1888,79 @@ textarea.form-control {
   }
 }
 
+/* ===== WORK PROCESS SECTION - RESPONSIVE TIMELINE FIX ===== */
+@media (max-width: 1023px) {
+  .work-process-item {
+    padding-left: 60px !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+    min-height: 100px;
+  }
+
+  .work-process-item .work-process-line {
+    left: 22px !important;
+    transform: none !important;
+    top: 0 !important;
+    bottom: -2rem !important;
+    height: auto !important;
+  }
+
+  .work-process-item .work-process-icon {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 0.9rem !important;
+    z-index: 2;
+  }
+
+  .work-process-item .work-process-icon i {
+    font-size: 0.9rem !important;
+  }
+
+  .work-process-item .work-process-icon .step-badge {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.6rem !important;
+    top: -6px !important;
+    right: -6px !important;
+  }
+
+  .work-process-item h3 {
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+    font-size: 1.05rem !important;
+  }
+
+  .work-process-item p {
+    max-width: 100% !important;
+    padding: 0 !important;
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (max-width: 639px) {
+  .work-process-item {
+    padding-left: 52px !important;
+  }
+
+  .work-process-item .work-process-line {
+    left: 18px !important;
+    bottom: -1.5rem !important;
+  }
+
+  .work-process-item .work-process-icon {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .work-process-item .work-process-icon i {
+    font-size: 0.8rem !important;
+  }
+}
+
 /* ===== PRODUCT GRID ===== */
 .product-grid {
   display: grid;

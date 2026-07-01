@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>TrophyCraft Dashboard</title>
-    <link rel="icon" type="img/jpg" href="img/logo.jpg">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23D4AF37'/><text x='50' y='68' font-family='serif' font-size='56' font-weight='bold' fill='white' text-anchor='middle'>A</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <script src="tailwindcss.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -47,6 +46,35 @@
         .dark .custom-shadow {
             box-shadow: 0 8px 20px -4px rgba(212, 175, 55, 0.15);
         }
+        .dark .text-gray-800 { color: #eef2ff !important; }
+        .dark .text-gray-700 { color: #e2e8f0 !important; }
+        .dark .text-gray-600 { color: #cbd5e1 !important; }
+        .dark .text-gray-500 { color: #94a3b8 !important; }
+        .dark .text-gray-400 { color: #a0aec0 !important; }
+        .dark .text-gray-300 { color: #cbd5e1 !important; }
+        .dark .text-gray-200 { color: #eef2ff !important; }
+        .dark .text-gold-600 { color: #e8c25e !important; }
+        .dark .text-gold-700 { color: #f0d080 !important; }
+        .dark .text-gold-800 { color: #f5dc90 !important; }
+        .dark .text-amber-700 { color: #e8c25e !important; }
+        .dark .text-emerald-600 { color: #86ef86 !important; }
+        .dark .text-green-600 { color: #86ef86 !important; }
+        .dark .bg-gold-50 { background: rgba(200, 162, 70, 0.1) !important; }
+        .dark .bg-gold-100 { background: rgba(200, 162, 70, 0.15) !important; }
+        .dark .bg-gold-200 { background: rgba(200, 162, 70, 0.2) !important; }
+        .dark .border-gold-200 { border-color: rgba(200, 162, 70, 0.25) !important; }
+        .dark .border-gold-300 { border-color: rgba(200, 162, 70, 0.3) !important; }
+        .dark .bg-white { background: #1a1a2e !important; }
+        .dark .bg-gray-50 { background: #151528 !important; }
+        .dark input, .dark select, .dark textarea { background: #1e1e36 !important; color: #e8e8f0 !important; border-color: #333358 !important; }
+        .page-node p, .page-node h3, .page-node h4, .page-node li, .page-node td { line-height: 1.6; }
+        @media (max-width: 640px) {
+          .page-node .text-2xl { font-size: 1.2rem !important; word-break: break-word; }
+          .page-node .gap-4 { gap: 0.75rem; }
+          .page-node .flex.justify-between { flex-wrap: wrap; gap: 0.4rem; }
+        }
+        .project-card h4, .service-card h4 { line-height: 1.3; }
+        .nav-btn span { line-height: 1.4; }
         .page-node {
             display: none;
             opacity: 0;
@@ -64,6 +92,31 @@
             #sidebar { width: 280px; box-shadow: 0 0 30px rgba(0, 0, 0, 0.2); }
         }
         button, a { min-height: 44px; min-width: 44px; cursor: pointer; }
+
+        /* Dashboard header responsive alignment */
+        @media (max-width: 768px) {
+          header .top-actions { gap: 0.5rem; }
+          #pageTitle { font-size: 1rem !important; letter-spacing: -0.02em; }
+        }
+        @media (max-width: 480px) {
+          #pageTitle { font-size: 0.85rem !important; }
+          header .top-actions button,
+          header .top-actions a { width: 36px; height: 36px; min-width: 36px; min-height: 36px; padding: 6px; }
+          header .top-actions button i,
+          header .top-actions button svg,
+          header .top-actions a i { width: 16px; height: 16px; }
+          header .flex-1 p { font-size: 0.65rem !important; }
+        }
+        @media (max-width: 360px) {
+          #pageTitle { font-size: 0.7rem !important; }
+          header .flex-1 p { display: none; }
+          header .top-actions { gap: 0.25rem; }
+          header .top-actions button,
+          header .top-actions a { width: 30px; height: 30px; min-width: 30px; min-height: 30px; padding: 4px; }
+          header .top-actions button i,
+          header .top-actions button svg { width: 14px; height: 14px; }
+          header .flex.items-center.gap-3 { gap: 0.4rem; }
+        }
         .status-badge {
             padding: 4px 12px;
             border-radius: 100px;
@@ -252,7 +305,7 @@
 
             <!-- Hero Banner - Awards Workshop -->
             <div class="mb-8 rounded-2xl overflow-hidden shadow-xl relative">
-                <img src="./img/about2.webp" alt="Custom trophy engraving workshop" loading="lazy" class="w-full h-48 lg:h-56 object-cover brightness-90">
+                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&q=80" alt="Custom trophy engraving workshop" loading="lazy" class="w-full h-48 lg:h-56 object-cover brightness-90">
                 <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent flex items-center px-6">
                     <div class="text-white">
                         <span class="text-xs font-semibold bg-gold-600 px-3 py-1 rounded-full">SALE: 15% OFF</span>
@@ -305,13 +358,11 @@
     </div>
 
     <script>
-        lucide.createIcons();
-        function toggleSidebar() { const s = document.getElementById('sidebar'); const o = document.getElementById('sidebarOverlay'); s.classList.toggle('-translate-x-full'); if(window.innerWidth < 1024 && o) o.classList.toggle('hidden'); lucide.createIcons(); }
-        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); localStorage.setItem('trophyTheme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); updateThemeIcon(); lucide.createIcons(); }
-        function updateThemeIcon() { const icon = document.getElementById('themeIcon'); if(icon) { icon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon'); lucide.createIcons(); } }
-        if(localStorage.getItem('trophyTheme') === 'dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); updateThemeIcon();
-        function toggleDirection() { const html = document.getElementById('htmlTag'); html.dir = html.dir === 'rtl' ? 'ltr' : 'rtl'; lucide.createIcons(); }
-        function handleLogout() { alert("You have been securely logged out. Your award designs are saved."); }
+        function toggleSidebar() { const s = document.getElementById('sidebar'); const o = document.getElementById('sidebarOverlay'); s.classList.toggle('-translate-x-full'); if(window.innerWidth < 1024 && o) o.classList.toggle('hidden'); try { lucide.createIcons(); } catch(e) {} }
+        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); localStorage.setItem('trophyTheme', document.documentElement.classList.contains('dark') ? 'dark' : 'light'); updateThemeIcon(); try { lucide.createIcons(); } catch(e) {} }
+        function updateThemeIcon() { const icon = document.getElementById('themeIcon'); if(icon) { icon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon'); try { lucide.createIcons(); } catch(e) {} } }
+        function toggleDirection() { document.getElementById('htmlTag').dir = document.getElementById('htmlTag').dir === 'rtl' ? 'ltr' : 'rtl'; try { lucide.createIcons(); } catch(e) {} }
+        function handleLogout() { window.location.href = 'login.html'; }
         function showPage(pageId) {
             document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -322,9 +373,12 @@
             const activeBtn = document.getElementById('btn-' + pageId);
             if(activeBtn) activeBtn.classList.add('sidebar-active');
             if(window.innerWidth < 1024) toggleSidebar();
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e) {}
         }
-        document.addEventListener('DOMContentLoaded', () => { showPage('dashboard'); lucide.createIcons(); });
+        try { lucide.createIcons(); } catch(e) {}
+        if(localStorage.getItem('trophyTheme') === 'dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+        updateThemeIcon();
+        document.addEventListener('DOMContentLoaded', () => { showPage('dashboard'); try { lucide.createIcons(); } catch(e) {} });
     </script>
 </body>
 </html>

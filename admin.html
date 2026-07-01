@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>TrophyCraft Admin</title>
-    <link rel="icon" type="img/jpg" href="img/logo.jpg">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23b5873a'/><text x='50' y='68' font-family='serif' font-size='55' font-weight='bold' fill='white' text-anchor='middle'>T</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <script src="tailwindcss.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -87,6 +86,33 @@
             #sidebar { width: 280px; box-shadow: 0 0 30px rgba(0,0,0,0.2);}
         }
         button, a { min-height: 44px; min-width: 44px; cursor: pointer; }
+
+        /* Dashboard header responsive alignment */
+        @media (max-width: 768px) {
+          header .top-actions { gap: 0.5rem; }
+          #pageTitle { font-size: 1rem !important; }
+        }
+        @media (max-width: 480px) {
+          #pageTitle { font-size: 0.82rem !important; }
+          header .top-actions button,
+          header .top-actions a { width: 36px; height: 36px; min-width: 36px; min-height: 36px; padding: 6px; }
+          header .top-actions button i,
+          header .top-actions button svg,
+          header .top-actions a i { width: 16px; height: 16px; }
+          header .top-actions button span { width: 14px; height: 14px; font-size: 6px !important; padding: 0 !important; line-height: 14px; }
+          header .flex-1 p { font-size: 0.65rem !important; }
+        }
+        @media (max-width: 360px) {
+          #pageTitle { font-size: 0.68rem !important; }
+          header .flex-1 p { display: none; }
+          header .top-actions { gap: 0.25rem; }
+          header .top-actions button,
+          header .top-actions a { width: 30px; height: 30px; min-width: 30px; min-height: 30px; padding: 4px; }
+          header .top-actions button i,
+          header .top-actions button svg { width: 14px; height: 14px; }
+          header .top-actions button span { width: 12px; height: 12px; font-size: 5px !important; line-height: 12px; top: -3px !important; right: -3px !important; }
+          header .flex.items-center.gap-3 { gap: 0.4rem; }
+        }
         .engrave-pattern {
             background-image: radial-gradient(circle at 20% 30%, rgba(200,162,70,0.06) 2%, transparent 2.5%);
             background-size: 32px 32px;
@@ -124,8 +150,28 @@
         }
         .dark input, .dark select, .dark textarea { background: #1e1b2a; color: #f0f1f5; border-color: #3a3450; }
         .dark canvas { filter: brightness(0.96) contrast(1.08); }
+        .dark .text-gray-700 { color: #e2e8f0 !important; }
+        .dark .text-gray-400 { color: #a0aec0 !important; }
+        .dark .text-gray-300 { color: #cbd5e1 !important; }
+        .dark .text-gray-200 { color: #eef2ff !important; }
         .dark .text-green-600 { color: #86ef86 !important; }
+        .dark .text-green-700 { color: #86ef86 !important; }
         .dark .bg-gold\/10 { background: rgba(200, 162, 70, 0.15) !important; }
+        .dark .engrave-card .text-xs,
+        .dark .engrave-card .text-sm,
+        .dark .engrave-card p:not(.text-gold) { color: #e2e8f0 !important; }
+        .dark .engrave-card .text-gray-500 { color: #94a3b8 !important; }
+        .engrave-card h3, .engrave-card .text-3xl { line-height: 1.2; margin-top: 0.25rem; }
+        .engrave-card table th, .engrave-card table td { white-space: nowrap; padding: 0.75rem 0.5rem; }
+        .engrave-card table th:first-child, .engrave-card table td:first-child { padding-left: 0; }
+        .dash-stat-value { line-height: 1.2; }
+        .page-node p, .page-node h3, .page-node h4, .page-node li, .page-node td { line-height: 1.6; }
+        @media (max-width: 640px) {
+          .page-node .text-3xl { font-size: 1.35rem !important; word-break: break-word; }
+          .page-node .gap-5 { gap: 0.75rem; }
+          .page-node .flex.justify-between { flex-wrap: wrap; gap: 0.4rem; }
+        }
+        .dark .page-node ul, .dark .page-node li { color: #d1d5db; }
     </style>
 </head>
 <body class="bg-[#faf8f4] dark:bg-[#0c0a12] text-gray-800 dark:text-gray-100 antialiased engrave-pattern">
@@ -213,10 +259,6 @@
                     </div>
                 </div>
                 <div class="top-actions flex items-center gap-3">
-                    <div class="hidden sm:flex items-center gap-2 bg-white dark:bg-[#11101b] px-3 py-2 rounded-xl shadow-md border dark:border-gray-700">
-                        <i data-lucide="clock" class="w-4 h-4 text-gold dark:text-amber-400"></i>
-                        <span class="text-xs font-medium dark:text-gray-200" id="liveTime">10:30 AM</span>
-                    </div>
                     <button onclick="showPage('quote')" class="relative w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center hover:scale-105 transition">
                         <i data-lucide="message-square" class="w-5 h-5 text-gold dark:text-amber-400"></i>
                         <span class="absolute -top-1 -right-1 bg-gold text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">5</span>
@@ -229,10 +271,10 @@
                     </button>
                     <div class="hidden sm:flex items-center gap-2 bg-white dark:bg-[#11101b] pl-2 pr-3 py-1.5 rounded-xl shadow-md border border-amber-200 dark:border-gray-700">
                         <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center text-gold dark:text-amber-400">
-                            <i class="fa-solid fa-engrave text-sm"></i>
+                            <i class="fa-solid fa-engrave text-sm text-black"></i>
                         </div>
                         <div class="leading-tight">
-                            <p class="font-medium text-xs dark:text-gray-100">Master Engraver</p>
+                            <p class="font-medium text-xs text-black">Master Engraver</p>
                             <p class="text-[8px] text-gold dark:text-amber-400 font-bold">Alison K.</p>
                         </div>
                     </div>
@@ -240,7 +282,7 @@
             </header>
             <!-- Hero visual: trophies showcase (replaces embroidery imagery) -->
             <div class="mb-8 rounded-2xl overflow-hidden shadow-xl border border-gold/20 dark:border-gold/30 bg-gradient-to-r from-amber-900/10 to-stone-800/5">
-                <div class="relative w-full h-48 lg:h-56 bg-[url('./img/about1.webp')] bg-center bg-cover flex items-center justify-center">
+                <div class="relative w-full h-48 lg:h-56 bg-[url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=1200&q=80')] bg-center bg-cover flex items-center justify-center">
                     <div class="absolute inset-0 bg-black/30 backdrop-brightness-75 flex flex-col items-center justify-center">
                         <i class="fa-solid fa-trophy text-6xl text-white drop-shadow-lg mb-2"></i>
                         <p class="text-white font-bold text-xl tracking-wider drop-shadow">Custom Engraved Excellence</p>
@@ -274,14 +316,12 @@
         </main>
     </div>
     <script>
-        lucide.createIcons();
-
         function toggleSidebar() { 
             const s = document.getElementById('sidebar');
             const o = document.getElementById('sidebarOverlay');
             s.classList.toggle('-translate-x-full');
             if(window.innerWidth < 1024 && o) o.classList.toggle('hidden');
-            setTimeout(() => lucide.createIcons(), 120);
+            try { lucide.createIcons(); } catch(e) {}
         }
         function toggleDarkMode() {
             document.documentElement.classList.toggle('dark');
@@ -309,21 +349,15 @@
         function updateThemeIcon() {
             const icon = document.getElementById('themeIcon');
             if(icon) {
-                const isDark = document.documentElement.classList.contains('dark');
-                icon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
-                lucide.createIcons();
+                icon.setAttribute('data-lucide', document.documentElement.classList.contains('dark') ? 'sun' : 'moon');
+                try { lucide.createIcons(); } catch(e) {}
             }
         }
-        if(localStorage.getItem('trophyTheme') === 'dark') document.documentElement.classList.add('dark');
-        updateThemeIcon();
-
         function toggleDirection() {
-            const html = document.getElementById('htmlTag');
-            html.dir = html.dir === 'rtl' ? 'ltr' : 'rtl';
-            lucide.createIcons();
+            document.getElementById('htmlTag').dir = document.getElementById('htmlTag').dir === 'rtl' ? 'ltr' : 'rtl';
+            try { lucide.createIcons(); } catch(e) {}
         }
-        function handleLogout() { alert("Logged out from TrophyCraft Admin. See you soon!"); }
-
+        function handleLogout() { window.location.href = 'login.html'; }
         function showPage(pageId) {
             document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -334,15 +368,12 @@
             const activeBtn = document.getElementById('btn-' + pageId);
             if(activeBtn) activeBtn.classList.add('sidebar-active');
             if(window.innerWidth < 1024) toggleSidebar();
-            lucide.createIcons();
+            try { lucide.createIcons(); } catch(e) {}
         }
-
         function updateLiveTime() {
             let d = new Date();
             if(document.getElementById('liveTime')) document.getElementById('liveTime').innerText = d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) + ' EST';
         }
-        setInterval(updateLiveTime, 1000); updateLiveTime();
-
         const isDark = () => document.documentElement.classList.contains('dark');
         let trendChart, typeChart;
         function initCharts() {
@@ -353,7 +384,11 @@
             const typeCtx = document.getElementById('patchTypeChart')?.getContext('2d');
             if(typeCtx) typeChart = new Chart(typeCtx, { type: 'doughnut', data: { labels: ['Crystal','Metal Plaque','Wood/Glass'], datasets: [{ data: [42,33,25], backgroundColor: ['#c8a246','#b5873a','#ddb45e'], borderWidth: 0 }] }, options: { cutout: '60%', color: c, plugins: { legend: { position: 'bottom', labels: { font: { size: 8 }, color: c } } } } });
         }
-        document.addEventListener('DOMContentLoaded', () => { showPage('dashboard'); lucide.createIcons(); initCharts(); });
+        try { lucide.createIcons(); } catch(e) {}
+        if(localStorage.getItem('trophyTheme') === 'dark') document.documentElement.classList.add('dark');
+        updateThemeIcon();
+        setInterval(updateLiveTime, 1000); updateLiveTime();
+        document.addEventListener('DOMContentLoaded', () => { showPage('dashboard'); try { lucide.createIcons(); } catch(e) {} initCharts(); });
     </script>
 </body>
 </html>

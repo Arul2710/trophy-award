@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <span>123 Trophy Avenue, Suite 100, New York, NY 10001</span>
         </div>
         <div class="footer-contact-item">
-          <i class="fas fa-phone-alt"></i>
+          <i class="fas fa-phone"></i>
           <span>+1 (555) 123-4567</span>
         </div>
         <div class="footer-contact-item">

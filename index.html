@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home 1 - TrophyCraft | Custom Trophies & Awards</title>
-  <link rel="icon" type="img/jpg" href="img/logo.jpg">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
   <meta name="description" content="Premium custom trophy and award engraving services. Craft your legacy with TrophyCraft.">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="tailwindcss.js"></script>
@@ -14,7 +14,7 @@
   <!-- Navbar is auto-inserted by navbar.js -->
 
   <!-- ===== SECTION 1: Hero Banner ===== -->
-  <section class="hero-section relative" style="background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('./img/home1-1.webp') center/cover no-repeat;">
+  <section class="hero-section relative" style="background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=1920&q=80') center/cover no-repeat;">
     <div class="absolute inset-0 bg-black/40"></div>
     <div class="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
       <span class="inline-block bg-amber-600 text-white text-sm font-semibold px-5 py-2 rounded-full mb-6 tracking-wider uppercase animate-fadeInDown">Since 2005</span>
@@ -104,7 +104,7 @@
     </div>
   </section>
 
-  <!-- ===== SECTION 3: Featured Trophy Collection ===== -->
+<!-- ===== SECTION 3: Featured Trophy Collection ===== -->
   <section id="collection" class="py-20 bg-gray-50" data-aos="fade-up">
     <div class="max-w-7xl mx-auto px-4">
       <div class="text-center mb-14">
@@ -115,12 +115,20 @@
         </p>
       </div>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-2.webp" alt="Gold Champion Trophy" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Gold Champion Trophy</h3>
-            <p class="text-gray-600 mt-2 text-sm">Stunning gold-plated champion trophy with marble base. Perfect for tournaments and championship events.</p>
+      <!-- flex h-full setup panni layout maintain panna dynamic grid layout -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <!-- fixed standard width & height with dynamic focus setting object-center -->
+            <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80" alt="Gold Champion Trophy" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Gold Champion Trophy</h3>
+              <p class="text-gray-600 mt-2 text-sm">Stunning gold-plated champion trophy with marble base. Perfect for tournaments and championship events.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$189.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
@@ -128,11 +136,16 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-3.webp" alt="Crystal Eagle Award" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Crystal Eagle Award</h3>
-            <p class="text-gray-600 mt-2 text-sm">Elegant crystal eagle award with precision laser engraving. Ideal for corporate excellence and leadership recognition.</p>
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1581539250434-96d1c1a3f9d6?w=600&q=80" alt="Crystal Eagle Award" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Crystal Eagle Award</h3>
+              <p class="text-gray-600 mt-2 text-sm">Elegant crystal eagle award with precision laser engraving. Ideal for corporate excellence and leadership recognition.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$249.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
@@ -140,11 +153,16 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-4.webp" alt="Gold Cup Trophy" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Gold Cup Trophy</h3>
-            <p class="text-gray-600 mt-2 text-sm">Classic gold cup trophy on a polished wooden base. A timeless symbol of victory for any competition.</p>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Gold Cup Trophy" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Gold Cup Trophy</h3>
+              <p class="text-gray-600 mt-2 text-sm">Classic gold cup trophy on a polished wooden base. A timeless symbol of victory for any competition.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$159.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
@@ -152,11 +170,16 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-5.webp" alt="Sports Achievement Trophy" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Sports Achievement Trophy</h3>
-            <p class="text-gray-600 mt-2 text-sm">Dynamic sports figure trophy on a black marble base. Customizable for any sport including soccer, basketball, and baseball.</p>
+        <!-- Card 4 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1461896836934-bd45ba8fcf9b?w=600&q=80" alt="Sports Achievement Trophy" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Sports Achievement Trophy</h3>
+              <p class="text-gray-600 mt-2 text-sm">Dynamic sports figure trophy on a black marble base. Customizable for any sport including soccer, basketball, and baseball.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$129.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
@@ -164,11 +187,16 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-6.webp" alt="Crystal Star Award" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Crystal Star Award</h3>
-            <p class="text-gray-600 mt-2 text-sm">Exquisite crystal star award with beveled edges and a sleek glass base. Perfect for employee of the month and milestone celebrations.</p>
+        <!-- Card 5 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80" alt="Crystal Star Award" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Crystal Star Award</h3>
+              <p class="text-gray-600 mt-2 text-sm">Exquisite crystal star award with beveled edges and a sleek glass base. Perfect for employee of the month and milestone celebrations.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$199.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
@@ -176,17 +204,23 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-          <img src="./img/home1-7.webp" alt="Medal Plaque Set" class="w-full h-56 object-cover">
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">Medal & Plaque Set</h3>
-            <p class="text-gray-600 mt-2 text-sm">Premium medal and plaque combination set with engraved brass plate. Ideal for corporate events and annual galas.</p>
+        <!-- Card 6 -->
+        <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col justify-between">
+          <div>
+            <img src="https://images.unsplash.com/photo-1579124113918-61c618c4e4f1?w=600&q=80" alt="Medal Plaque Set" class="w-full h-64 object-contain bg-gray-100 object-center p-4">
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-900">Medal & Plaque Set</h3>
+              <p class="text-gray-600 mt-2 text-sm">Premium medal and plaque combination set with engraved brass plate. Ideal for corporate events and annual galas.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0">
             <div class="flex items-center justify-between mt-4">
               <span class="text-2xl font-bold text-amber-600">$99.00</span>
               <a href="#" class="text-amber-600 hover:text-amber-500 font-semibold text-sm"><i class="fas fa-plus-circle mr-1"></i>Customize</a>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -263,7 +297,7 @@
 
   <!-- ===== SECTION 5: Showcase & Promotions ===== -->
   <section class="py-20 bg-gray-900 relative overflow-hidden" data-aos="fade-up">
-    <div class="absolute inset-0 bg-[url('./img/home1-8.webp')] bg-cover bg-center opacity-5"></div>
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&q=80')] bg-cover bg-center opacity-5"></div>
     <div class="max-w-7xl mx-auto px-4 relative z-10">
       <div class="text-center mb-14">
         <span class="text-amber-400 font-semibold text-sm uppercase tracking-widest">Why Choose Us</span>
@@ -308,12 +342,12 @@
         <div class="relative">
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-4">
-              <img src="./img/home1-9.webp" alt="Gold Champion Trophy" class="rounded-xl w-full h-48 object-cover shadow-lg" loading="lazy">
-              <img src="./img/home1-10.webp" alt="Sports Medal" class="rounded-xl w-full h-40 object-cover shadow-lg" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80" alt="Gold Champion Trophy" class="rounded-xl w-full h-48 object-cover shadow-lg" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1579124113918-61c618c4e4f1?w=600&q=80" alt="Sports Medal" class="rounded-xl w-full h-40 object-cover shadow-lg" loading="lazy">
             </div>
             <div class="space-y-4 pt-8">
-              <img src="./img/home1-11.webp" alt="Gold Cup" class="rounded-xl w-full h-40 object-cover shadow-lg" loading="lazy">
-              <img src="./img/home1-12.webp" alt="Crystal Award" class="rounded-xl w-full h-48 object-cover shadow-lg" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80" alt="Gold Cup" class="rounded-xl w-full h-40 object-cover shadow-lg" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1581539250434-96d1c1a3f9d6?w=600&q=80" alt="Crystal Award" class="rounded-xl w-full h-48 object-cover shadow-lg" loading="lazy">
             </div>
           </div>
         </div>
