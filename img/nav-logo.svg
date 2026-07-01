@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 185 40" width="185" height="40">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b8860b"/>
+      <stop offset="35%" stop-color="#f0d68a"/>
+      <stop offset="65%" stop-color="#e8c25e"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+    <linearGradient id="gt" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b8860b"/>
+      <stop offset="50%" stop-color="#e8c25e"/>
+      <stop offset="100%" stop-color="#b8860b"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(2, 1)">
+    <path d="M18 2 L34 2 Q36 2 36 4 L36 26 Q36 34 26 39 Q16 34 16 26 L16 4 Q16 2 18 2 Z" fill="#1c1c2e" stroke="url(#g)" stroke-width="2"/>
+    <path d="M19.5 10 L19.5 22 Q19.5 25 26 27.5 Q32.5 25 32.5 22 L32.5 10 Q32.5 9 31 9 L21 9 Q19.5 9 19.5 10 Z" fill="url(#g)" opacity="0.9"/>
+    <path d="M17 12 Q14 12 14 15.5 Q14 19 17 19.5" fill="none" stroke="url(#g)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M35 12 Q38 12 38 15.5 Q38 19 35 19.5" fill="none" stroke="url(#g)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="17.5" y="26.5" width="17" height="2.5" rx="1" fill="url(#g)"/>
+    <polygon points="26,11.5 27.5,14 30,14 28,16 28.5,18.5 26,17 23.5,18.5 24,16 22,14 24.5,14" fill="#fff" opacity="0.45"/>
+  </g>
+  <text x="55" y="26" font-family="Georgia, 'Times New Roman', serif" font-size="21" letter-spacing="0.5">
+    <tspan font-weight="700" fill="url(#gt)">Trophy</tspan><tspan font-weight="500" fill="#b8860b">Craft</tspan>
+  </text>
+</svg>

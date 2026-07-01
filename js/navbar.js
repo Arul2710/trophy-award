@@ -3,8 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <nav class="main-navbar" id="mainNavbar">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
-        
-        <span style="font-weight: 800; font-size: 1.2rem; background: linear-gradient(135deg, #b8860b, #e8c25e); -webkit-background-clip: text; background-clip: text; color: transparent;">Trophy<span style="background: linear-gradient(135deg, #e8c25e, #b8860b); -webkit-background-clip: text; background-clip: text; color: transparent;">Craft</span></span>
+        <img src="img/nav-logo.svg" alt="TrophyCraft" style="height: 38px; width: auto; display: block;">
       </a>
 
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
